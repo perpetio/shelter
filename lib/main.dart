@@ -1,16 +1,19 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:shelter/presentation/screens/map/map_screen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'presentation/app.dart';
+import 'presentation/utils/strings.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
-  @override
-  Widget build(BuildContext context) => const MaterialApp(
-        title: 'Shelter',
-        home: MapScreen(),
-      );
+  runApp(
+    EasyLocalization(
+      path: Strings.translationsPath,
+      supportedLocales: const [Locale('en')],
+      fallbackLocale: const Locale('en'),
+      child: const App(),
+    ),
+  );
 }
