@@ -17,6 +17,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_map: ^0.14.0
   flutter_screenutil: ^5.5.1
+  font_awesome_flutter: ^10.1.0
   google_fonts: ^2.3.2
   persistent_bottom_nav_bar: ^4.0.2
 
