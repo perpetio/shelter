@@ -254,3 +254,6 @@ fabric.properties
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar
+
+### App related ###
+assets/evacuation_lviv_region.json
