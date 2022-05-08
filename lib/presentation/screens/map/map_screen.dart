@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:shelter/data/models/models.dart';
 import 'package:shelter/domain/cubits/cubits.dart';
 import 'package:shelter/presentation/widgets/widgets.dart';
 
 import 'local_widgets/map_tile_layer.dart';
+import 'local_widgets/sh_location_marker.dart';
 import 'local_widgets/shelters_marker_cluster_layer.dart';
 
 class MapScreen extends StatefulWidget {
@@ -22,6 +25,9 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<MapCubit>(context).loadShelters();
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      await Geolocator.requestPermission(); //TODO extract request, add logic
+    });
   }
 
   @override
@@ -47,11 +53,12 @@ class _MapScreenState extends State<MapScreen> {
             center: center,
             zoom: 13,
             maxZoom: 20,
-            plugins: [MarkerClusterPlugin()],
+            plugins: [MarkerClusterPlugin(), const LocationMarkerPlugin()],
           ),
           layers: [
             MapTileLayer.layer(context),
-            SheltersMarkerClusterLayer(shelters: shelters),
+            ShLocationMarker.marker(),
+            SheltersMarkerClusterLayer.layer(shelters: shelters),
           ],
         ),
       );
