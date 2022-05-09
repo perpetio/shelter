@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ShColors {
+  static const Color alabaster = Color(0xFFF9F9F9);
   static const Color black = Colors.black;
   static const Color boulder = Color(0xFF7A7A7A);
   static const Color downy = Color(0xFF54D2B4);

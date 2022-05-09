@@ -9,9 +9,6 @@ class AddShelterScreen extends StatefulWidget {
 
 class _AddShelterScreenState extends State<AddShelterScreen> {
   @override
-  Widget build(BuildContext context) => const Scaffold(
-        body: Center(
-          child: Text('add shelter'),
-        ),
-      );
+  Widget build(BuildContext context) =>
+      const Center(child: Text('add shelter'));
 }
