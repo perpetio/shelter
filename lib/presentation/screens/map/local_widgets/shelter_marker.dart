@@ -7,15 +7,14 @@ import 'package:shelter/presentation/styles/styles.dart';
 
 import 'triangle_clipper.dart';
 
-class ShelterMarker extends Marker {
-  ShelterMarker(LatLng point)
-      : super(
-          point: point,
-          builder: _builder,
-          width: 24.w,
-          height: 28.5.w,
-          anchorPos: AnchorPos.align(AnchorAlign.top),
-        );
+class ShelterMarker {
+  static Marker marker(LatLng point) => Marker(
+        point: point,
+        builder: _builder,
+        width: 24.w,
+        height: 28.5.w,
+        anchorPos: AnchorPos.align(AnchorAlign.top),
+      );
 
   static Widget _builder(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,

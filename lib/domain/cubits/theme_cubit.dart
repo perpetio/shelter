@@ -12,6 +12,10 @@ class ThemeCubit extends Cubit<ThemeData> {
       selectedItemColor: ShColors.sushi,
       unselectedItemColor: ShColors.boulder,
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ShColors.alabaster.withOpacity(0.94),
+      foregroundColor: ShColors.black,
+    ),
   );
 
   static final _darkTheme = ThemeData(
@@ -20,6 +24,10 @@ class ThemeCubit extends Cubit<ThemeData> {
       backgroundColor: ShColors.mineShaft,
       selectedItemColor: ShColors.sushi,
       unselectedItemColor: ShColors.silver,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: ShColors.mineShaft,
+      foregroundColor: ShColors.white,
     ),
   );
 

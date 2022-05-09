@@ -8,23 +8,25 @@ import 'package:shelter/presentation/styles/styles.dart';
 
 import 'shelter_marker.dart';
 
-class SheltersMarkerClusterLayer extends MarkerClusterLayerOptions {
-  SheltersMarkerClusterLayer({required List<ShelterModel> shelters})
-      : super(
-          markers: shelters
-              .map((sh) => ShelterMarker(sh.properties.point!))
-              .toList(),
-          builder: _builder,
-          size: Size(36.w, 36.w),
-          maxClusterRadius: 100,
-          fitBoundsOptions: const FitBoundsOptions(maxZoom: 20),
-          showPolygon: false,
-        );
+class SheltersMarkerClusterLayer {
+  static MarkerClusterLayerOptions layer({
+    required List<ShelterModel> shelters,
+  }) =>
+      MarkerClusterLayerOptions(
+        markers: shelters
+            .map((sh) => ShelterMarker.marker(sh.properties.point!))
+            .toList(),
+        builder: _builder,
+        size: Size(36.w, 36.w),
+        maxClusterRadius: 100,
+        fitBoundsOptions: const FitBoundsOptions(maxZoom: 20),
+        showPolygon: false,
+      );
 
   static Widget _builder(context, markers) => Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: ShColors.sushi.withOpacity(0.9),
+          color: ShColors.sushi.withOpacity(0.8),
           shape: BoxShape.circle,
         ),
         child: Text(
