@@ -11,10 +11,18 @@ import 'shelter_marker.dart';
 class SheltersMarkerClusterLayer {
   static MarkerClusterLayerOptions layer({
     required List<ShelterModel> shelters,
+    required void Function(ShelterModel) onMarkerTap,
+     ShelterModel? selectedShelter,
   }) =>
       MarkerClusterLayerOptions(
         markers: shelters
-            .map((sh) => ShelterMarker.marker(sh.properties.point!))
+            .map(
+              (sh) => ShelterMarker.marker(
+                sh,
+                onMarkerTap: onMarkerTap,
+                selectedShelter: selectedShelter,
+              ),
+            )
             .toList(),
         builder: _builder,
         size: Size(36.w, 36.w),

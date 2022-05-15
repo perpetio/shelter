@@ -1,11 +1,13 @@
+import 'package:equatable/equatable.dart';
+
 import 'models.dart';
 
-class ShelterModel {
+class ShelterModel extends Equatable {
   final String? type;
   final ShelterGeom? geometry;
   final ShelterProperties properties;
 
-  ShelterModel({
+  const ShelterModel({
     this.type,
     this.geometry,
     required this.properties,
@@ -22,4 +24,7 @@ class ShelterModel {
         "geometry": geometry?.toJson(),
         "properties": properties.toJson(),
       };
+
+  @override
+  List<Object?> get props => [type, geometry, properties];
 }

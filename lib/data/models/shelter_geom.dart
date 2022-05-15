@@ -1,4 +1,6 @@
-class ShelterGeom {
+import 'package:equatable/equatable.dart';
+
+class ShelterGeom extends Equatable {
   final String? type;
   final List<double> coordinates;
 
@@ -18,4 +20,7 @@ class ShelterGeom {
         "type": type,
         "coordinates": List<dynamic>.from(coordinates.map((x) => x)),
       };
+
+  @override
+  List<Object?> get props => [type, coordinates];
 }

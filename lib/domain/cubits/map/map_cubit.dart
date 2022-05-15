@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:shelter/data/models/models.dart';
 import 'package:shelter/data/repositories/shelters/shelters_repository.dart';
 
 import 'map_state.dart';
@@ -38,6 +39,13 @@ class MapCubit extends Cubit<MapState> {
           ),
         );
       }
+    }
+  }
+
+  void selectShelter(ShelterModel shelter) {
+    final currentState = state;
+    if (currentState is MapLoaded) {
+      emit(currentState.copyWith(selectedShelter: shelter));
     }
   }
 

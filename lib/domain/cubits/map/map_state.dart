@@ -14,26 +14,35 @@ class MapLoaded extends MapState {
   final List<ShelterModel> shelters;
   final bool showLocation;
   final LatLng? moveToPoint;
+  final ShelterModel? selectedShelter;
 
   MapLoaded({
     this.initialCenter,
     required this.shelters,
     this.showLocation = false,
     this.moveToPoint,
+    this.selectedShelter,
   });
 
   MapLoaded copyWith({
     List<ShelterModel>? shelters,
     bool? showLocation,
     LatLng? moveToPoint,
+    ShelterModel? selectedShelter,
   }) =>
       MapLoaded(
         shelters: shelters ?? this.shelters,
         showLocation: showLocation ?? this.showLocation,
         moveToPoint: moveToPoint,
+        selectedShelter: selectedShelter,
       );
 
   @override
-  List<Object?> get props =>
-      [initialCenter, shelters, showLocation, moveToPoint];
+  List<Object?> get props => [
+        initialCenter,
+        shelters,
+        showLocation,
+        moveToPoint,
+        selectedShelter,
+      ];
 }
