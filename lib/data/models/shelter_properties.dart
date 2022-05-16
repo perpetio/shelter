@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'models.dart';
 
-class ShelterProperties {
+class ShelterProperties extends Equatable {
   final String? moid;
   final String? id;
   final ShelterGeom? geom;
@@ -33,7 +34,7 @@ class ShelterProperties {
     return LatLng(y, x);
   }
 
-  ShelterProperties({
+  const ShelterProperties({
     this.moid,
     this.id,
     this.geom,
@@ -120,4 +121,30 @@ class ShelterProperties {
     if (json is String) return int.tryParse(json);
     return json;
   }
+
+  @override
+  List<Object?> get props => [
+        moid,
+        id,
+        geom,
+        district,
+        holder,
+        location,
+        settlement,
+        streetType,
+        streetName,
+        housenumber,
+        entrance,
+        pavilion,
+        objectType,
+        ownership,
+        separatelyOrBuiltin,
+        area,
+        capacity,
+        x,
+        y,
+        editorId,
+        uid,
+        editorDate,
+      ];
 }

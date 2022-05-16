@@ -38,13 +38,18 @@ class App extends StatelessWidget {
         RepositoryProvider<SheltersRepository>(
           create: (_) => AssetShelterRepository(),
         ),
+        RepositoryProvider<RoutesRepository>(
+          create: (_) => ORSRoutesRepository(),
+        ),
       ];
 
   List<BlocProvider> _cubitProviders(BuildContext context) => [
         BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
         BlocProvider<MapCubit>(
           create: (context) => MapCubit(
-            RepositoryProvider.of<SheltersRepository>(context),
+            sheltersRepository:
+                RepositoryProvider.of<SheltersRepository>(context),
+            routesRepository: RepositoryProvider.of<RoutesRepository>(context),
           ),
         ),
       ];
