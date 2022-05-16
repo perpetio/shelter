@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shelter/presentation/styles/styles.dart';
 
 class ThemeCubit extends Cubit<ThemeData> {
-  ThemeCubit() : super(_lightTheme);
+  ThemeCubit() : super(_darkTheme);
 
   static final _lightTheme = ThemeData(
     colorScheme: const ColorScheme(

@@ -4,7 +4,7 @@ class ShelterGeom extends Equatable {
   final String? type;
   final List<double> coordinates;
 
-  ShelterGeom({
+  const ShelterGeom({
     this.type,
     required this.coordinates,
   });

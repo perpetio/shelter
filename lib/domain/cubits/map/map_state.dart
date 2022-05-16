@@ -15,6 +15,8 @@ class MapLoaded extends MapState {
   final bool showLocation;
   final LatLng? moveToPoint;
   final ShelterModel? selectedShelter;
+  final List<LatLng>? routePoints;
+  final bool routeInProgress;
 
   MapLoaded({
     this.initialCenter,
@@ -22,6 +24,8 @@ class MapLoaded extends MapState {
     this.showLocation = false,
     this.moveToPoint,
     this.selectedShelter,
+    this.routePoints,
+    this.routeInProgress = false,
   });
 
   MapLoaded copyWith({
@@ -29,12 +33,16 @@ class MapLoaded extends MapState {
     bool? showLocation,
     LatLng? moveToPoint,
     ShelterModel? selectedShelter,
+    List<LatLng>? routePoints,
+    bool? routeInProgress,
   }) =>
       MapLoaded(
         shelters: shelters ?? this.shelters,
         showLocation: showLocation ?? this.showLocation,
         moveToPoint: moveToPoint,
         selectedShelter: selectedShelter,
+        routePoints: routePoints,
+        routeInProgress: routeInProgress ?? this.routeInProgress,
       );
 
   @override
@@ -44,5 +52,7 @@ class MapLoaded extends MapState {
         showLocation,
         moveToPoint,
         selectedShelter,
+        routePoints,
+        routeInProgress,
       ];
 }

@@ -6,13 +6,13 @@ import 'package:shelter/presentation/styles/styles.dart';
 class ShPrimaryButton extends StatelessWidget {
   final String label;
   final void Function() onPressed;
-  final Color color;
+  final bool primary;
 
   const ShPrimaryButton({
     Key? key,
     required this.label,
     required this.onPressed,
-    this.color = ShColors.sushi,
+    this.primary = true,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,8 @@ class ShPrimaryButton extends StatelessWidget {
       );
 
   ButtonStyle _style() => TextButton.styleFrom(
-        backgroundColor: color,
+        fixedSize: Size(double.infinity, 42.h),
+        backgroundColor: primary ? ShColors.sushi : ShColors.coral,
         alignment: Alignment.center,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.r),

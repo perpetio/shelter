@@ -5,12 +5,13 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:shelter/data/repositories/routes/ors_routes_repository.dart';
 import 'package:shelter/domain/cubits/cubits.dart';
+import 'package:shelter/presentation/styles/styles.dart';
 import 'package:shelter/presentation/widgets/widgets.dart';
 
 import 'local_widgets/map_tile_layer.dart';
 import 'local_widgets/sh_location_marker.dart';
+import 'local_widgets/shelter_card.dart';
 import 'local_widgets/shelters_marker_cluster_layer.dart';
 
 class MapScreen extends StatefulWidget {
@@ -23,7 +24,6 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   final MapController _mapController = MapController();
   MapCubit get _cubit => BlocProvider.of<MapCubit>(context);
-  Polyline? _polyline;
 
   @override
   void initState() {
@@ -49,10 +49,27 @@ class _MapScreenState extends State<MapScreen> {
   Widget _buildUI(MapLoaded state) => Stack(
         children: [
           _map(state),
-          Positioned(
-            right: 16.w,
-            bottom: 30.h,
-            child: _locationButton(showLocation: state.showLocation),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 16.w, bottom: 16.w),
+                  child: _locationButton(showLocation: state.showLocation),
+                ),
+                if (state.selectedShelter != null)
+                  Padding(
+                    padding: EdgeInsets.all(16.w),
+                    child: ShelterCard(
+                      properties: state.selectedShelter!.properties,
+                      onButtonPressed: _cubit.toggleRouteInProgress,
+                      routeInProgress: state.routeInProgress,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ],
       );
@@ -67,20 +84,22 @@ class _MapScreenState extends State<MapScreen> {
             MarkerClusterPlugin(),
             if (state.showLocation) const LocationMarkerPlugin(),
           ],
+          onTap: (_, __) => _cubit.resetSelectedShelter(),
         ),
         layers: [
           MapTileLayer.layer(context),
           if (state.showLocation) ShLocationMarker.marker(),
           SheltersMarkerClusterLayer.layer(
             shelters: state.shelters,
-            onMarkerTap: _cubit.selectShelter,
+            onMarkerTap: (shelter) async {
+              await _cubit.selectShelter(shelter);
+              //TODO find better solution
+              await Future.delayed(const Duration(milliseconds: 100));
+              _cubit.buildRoute();
+            },
             selectedShelter: state.selectedShelter,
           ),
-          PolylineLayerOptions(
-            polylines: [
-              if (_polyline != null) _polyline!,
-            ],
-          )
+          if (state.routePoints != null) _polylineLayer(state.routePoints!),
         ],
       );
 
@@ -93,20 +112,18 @@ class _MapScreenState extends State<MapScreen> {
               size: 16.w,
             ),
             onPressed: _cubit.toggleLocation,
-            // onPressed: () async {
-            //   final points = await ORSRoutesRepository().getRoutePoints(
-            //     start: LatLng(49.824610, 23.890120),
-            //     end: LatLng(49.824538, 23.932142),
-            //   );
-            //   setState(() {
-            //     _polyline = Polyline(
-            //       points: points,
-            //       strokeWidth: 2.w,
-            //       isDotted: true,
-            //     );
-            //   });
-            // },
           ),
         ),
+      );
+
+  LayerOptions _polylineLayer(List<LatLng> points) => PolylineLayerOptions(
+        polylines: [
+          Polyline(
+            points: points,
+            color: ShColors.sushi,
+            strokeWidth: 5.w,
+            isDotted: true,
+          ),
+        ],
       );
 }

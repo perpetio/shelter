@@ -9,21 +9,24 @@ import 'package:shelter/presentation/widgets/sh_primary_button.dart';
 
 class ShelterCard extends StatelessWidget {
   final ShelterProperties properties;
-  final void Function() goToShelter;
+  final void Function() onButtonPressed;
+  final bool routeInProgress;
 
   const ShelterCard({
     Key? key,
     required this.properties,
-    required this.goToShelter,
+    required this.onButtonPressed,
+    required this.routeInProgress,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
         width: 343.w,
-        height: 204.h,
+        height: 190.h,
         decoration: _decoration(context),
         padding: EdgeInsets.all(16.r),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _shelterText(context),
             SizedBox(height: 8.h),
@@ -33,9 +36,14 @@ class ShelterCard extends StatelessWidget {
             SizedBox(height: 13.h),
             if (properties.area != null) _area(context),
             const Spacer(),
-            ShPrimaryButton(
-              label: Strings.goToShelter,
-              onPressed: () {},
+            SizedBox(
+              width: double.infinity,
+              child: ShPrimaryButton(
+                label:
+                    !routeInProgress ? Strings.goToShelter : Strings.stopRoute,
+                onPressed: onButtonPressed,
+                primary: !routeInProgress,
+              ),
             ),
           ],
         ),
