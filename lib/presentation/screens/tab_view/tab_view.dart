@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:shelter/domain/cubits/cubits.dart';
 import 'package:shelter/presentation/screens/screens.dart';
 import 'package:shelter/presentation/utils/strings.dart';
 
-class TabView extends StatelessWidget {
+class TabView extends StatefulWidget {
   const TabView({Key? key}) : super(key: key);
+
+  @override
+  State<TabView> createState() => _TabViewState();
+}
+
+class _TabViewState extends State<TabView> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ThemeCubit>(context).loadTheme();
+  }
 
   @override
   Widget build(BuildContext context) => PersistentTabView(
@@ -21,17 +34,11 @@ class TabView extends StatelessWidget {
 
   List<Widget> _screens() => [
         const MapScreen(),
-        const AddShelterScreen(),
         const SettingsScreen(),
       ];
 
   List<PersistentBottomNavBarItem> _items(BuildContext context) => [
         _navBarItem(context, icon: Icons.map_outlined, title: Strings.map),
-        _navBarItem(
-          context,
-          icon: Icons.add_circle_outline,
-          title: Strings.addShelter,
-        ),
         _navBarItem(context, icon: Icons.settings, title: Strings.settings),
       ];
 

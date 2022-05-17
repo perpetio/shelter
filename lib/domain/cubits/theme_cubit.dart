@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shelter/presentation/styles/styles.dart';
 
 class ThemeCubit extends Cubit<ThemeData> {
@@ -55,7 +56,20 @@ class ThemeCubit extends Cubit<ThemeData> {
     ),
   );
 
+  void loadTheme() async {
+    //TODO extract prefs to repository/service
+    final prefs = await SharedPreferences.getInstance();
+    final darkMode = prefs.getBool('darkMode');
+    emit((darkMode ?? true) ? _darkTheme : _lightTheme);
+  }
+
   void toggleTheme() {
-    emit(state.brightness == Brightness.dark ? _lightTheme : _darkTheme);
+    final switchToDark = state.brightness == Brightness.light;
+    emit(switchToDark ? _darkTheme : _lightTheme);
+
+    //TODO extract prefs to repository/service
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setBool('darkMode', switchToDark);
+    });
   }
 }
