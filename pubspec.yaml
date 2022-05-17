@@ -27,6 +27,7 @@ dependencies:
   google_fonts: ^2.3.2
   latlong2: ^0.8.1
   persistent_bottom_nav_bar: ^4.0.2
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

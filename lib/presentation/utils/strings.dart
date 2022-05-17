@@ -8,9 +8,7 @@ class Strings {
   static final String goToShelter = 'go_to_shelter'.tr();
   static final String stopRoute = 'stop_route'.tr();
 
-  // Add shelter screen
-  static final String addShelter = 'add_shelter'.tr();
-
   // Settings screen
   static final String settings = 'settings'.tr();
+  static final String darkMode = 'dark_mode'.tr();
 }
