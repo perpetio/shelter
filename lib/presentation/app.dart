@@ -23,7 +23,7 @@ class App extends StatelessWidget {
   Widget _app(BuildContext context) => BlocBuilder<ThemeCubit, ThemeData>(
         builder: (_, theme) => ScreenUtilInit(
           designSize: DesignConfig.size,
-          child: MaterialApp(
+          builder: (_, __) => MaterialApp(
             title: 'Shelter',
             theme: theme,
             home: const TabView(),

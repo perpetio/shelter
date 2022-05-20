@@ -25,7 +25,6 @@ class ORSRoutesRepository implements RoutesRepository {
           'end': '${end.longitude},${end.latitude}',
         },
       );
-      log(response.toString());
       List points = response.data['features'][0]['geometry']['coordinates'];
       final List<LatLng> polyPoints = [];
       for (int i = 0; i < points.length; i++) {
